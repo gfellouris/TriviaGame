@@ -1,0 +1,53 @@
+body {
+  background-image: url("../images/DisneyWorld.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #F4B7CF;
+  font-family: "Bubblegum Sans", cursive;
+  font-size: 24px;
+}
+
+/* custom elements */
+li {
+  border: 1px solid #F4B7CF;
+  margin: 5px;
+  padding: 15px;
+  border-radius: 15px;
+  opacity: 0.7;
+  width: 100%;
+}
+/* customer classes */
+.container-bg {
+  border-radius: 15px;
+  padding: 10px;
+  background-color: #0a314e;
+  opacity: 0.8;
+}
+
+.answer-container {
+    border: 1px solid #F4B7CF;
+    margin: auto;
+    padding: 15px;
+    border-radius: 15px;
+    opacity: 0.7;
+    width: 60%;
+    height: 80%;
+    font-size: 42px;
+    text-align: center;
+
+  }
+
+/* Custom ID's */
+#trivia-time-remaining {
+    text-align: center;
+}
+
+#trivia-question {
+    text-align: center;
+}
+/* Bootstrap customizations */
+.jumbotron {
+  text-align: center;
+  background-color: #0a314e;
+  font-size: 42px;
+}
