@@ -39,6 +39,18 @@ li {
   text-align: center;
 }
 
+.fill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+}
+.fill img {
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+}
+
 /* Custom ID's */
 #trivia-time-remaining {
   text-align: center;

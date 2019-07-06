@@ -48,11 +48,59 @@ function timeConverter(t) {
   return minutes + ":" + seconds;
 }
 
+function checkWinner(str) {
+  bWinner = false;
+  console.log("Passed selection:" + str);
+  if (str === questionAnswer.choices[0]) {
+    bWinner = true;
+  } else {
+    bWinner = false;
+  }
+  return bWinner;
+}
 //  Variable that will hold our setInterval that runs the stopwatch
 var intervalId;
 var clockRunning = false;
 var time = 5;
+var isWinner = false;
+var questionAnswer = {
+  question: "Who was Snow Whites prince?",
+  choices: [
+    "Prince Ferdinand",
+    "Prince Philip",
+    "Prince Charming",
+    "Prince Naveen"
+  ],
+  image: "princeferdinand.jpg",
+  audio: ""
+};
 
 window.onload = function() {
   start();
+
+  $(".choice").on("click", function() {
+    userSelection = $(this).attr("value");
+    console.log("User selected: " + userSelection);
+    isWinner = checkWinner(userSelection);
+    console.log("Winner?" + isWinner);
+
+    if (isWinner) {
+      alert("You won!");
+      $(this).css("background-color","lightgreen");
+      $(this).css("color","white");
+      $(".answer-container").html("<img src='assets/images/princeferdinand.jpg' />");
+    } else {
+      alert("Wrong choice!");
+      $(this).css("background-color","red");
+      $(this).css("color","white");
+
+    }
+
+    // $(this).css("border", "5px solid lightyellow");
+    // totalScore = totalScore + parseInt($(this).attr("value"));
+    // console.log("Gem value = " + $(this).attr("value"));
+    // console.log("Total Score = " + totalScore);
+    // $("#totalScore").html("<h4>Total Score:</h4>" + totalScore);
+    // checkWinner(totalScore, randomNum);
+  });
 };
