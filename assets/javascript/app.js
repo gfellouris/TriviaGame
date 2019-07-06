@@ -1,3 +1,4 @@
+// =============== Timer Functions - START =============== //
 function start() {
   //  TODO: Use setInterval to start the count here and set the clock to running.
   if (!clockRunning) {
@@ -7,18 +8,15 @@ function start() {
 }
 
 function stop() {
-  //  TODO: Use clearInterval to stop the count here and set the clock to not be running.
+  //  clearInterval to stop the count here and set the clock to not be running.
   clearInterval(intervalId);
   clockRunning = false;
 }
 
 function count() {
-  //  TODO: decrease time by 1, remember we cant use "this" here.
+  //  decrease time by 1 second
   time--;
-  //  TODO: Get the current time, pass that into the timeConverter function,
-  //        and save the result in a variable.
   timeConverter(time);
-  //  TODO: Use the variable you just created to show the converted time in the "display" div.
   var result = timeConverter(time);
   $("#timer").html(result);
   if (time === 0) {
@@ -26,9 +24,6 @@ function count() {
     alert("game over!");
   }
 }
-
-//  THIS FUNCTION IS DONE FOR US!
-//  We do not need to touch it.
 
 function timeConverter(t) {
   //  Takes the current time in seconds and convert it to minutes and seconds (mm:ss).
@@ -47,7 +42,11 @@ function timeConverter(t) {
 
   return minutes + ":" + seconds;
 }
+// =============== Timer Functions - END =============== //
 
+function loadQuestion() {
+  $("#question").html(questionAnswer.question);
+}
 function checkWinner(str) {
   bWinner = false;
   console.log("Passed selection:" + str);
@@ -58,6 +57,24 @@ function checkWinner(str) {
   }
   return bWinner;
 }
+
+function loadChoices() {
+  for (x = 0; x < questionAnswer.choices.length; x++) {
+    var choice = questionAnswer.choices[x];
+    $("#choices").append(
+      "<div id=choice" +
+        x +
+        " class=choice value='" +
+        choice +
+        "'>" +
+        choice +
+        "</div>"
+    );
+  }
+}
+
+// =============== Main Section - START =============== //
+
 //  Variable that will hold our setInterval that runs the stopwatch
 var intervalId;
 var clockRunning = false;
@@ -76,9 +93,12 @@ var questionAnswer = {
 };
 
 window.onload = function() {
+  loadQuestion();
+  loadChoices();
   start();
 
   $(".choice").on("click", function() {
+    stop();
     userSelection = $(this).attr("value");
     console.log("User selected: " + userSelection);
     isWinner = checkWinner(userSelection);
@@ -86,21 +106,20 @@ window.onload = function() {
 
     if (isWinner) {
       alert("You won!");
-      $(this).css("background-color","lightgreen");
-      $(this).css("color","white");
-      $(".answer-container").html("<img src='assets/images/princeferdinand.jpg' />");
+      $(this).css("background-color", "lightgreen");
+      $(this).css("color", "white");
+      $(".answer-container").html(
+        "<img height=80% width=60% src='assets/images/princeferdinand.png' />"
+      );
+      $(".answer-container").css(
+        "background",
+        "url(assets/images/princeferdinand.png)"
+      );
+      $(".answer-container").css("opacity", "1.0");
     } else {
       alert("Wrong choice!");
-      $(this).css("background-color","red");
-      $(this).css("color","white");
-
+      $(this).css("background-color", "red");
+      $(this).css("color", "white");
     }
-
-    // $(this).css("border", "5px solid lightyellow");
-    // totalScore = totalScore + parseInt($(this).attr("value"));
-    // console.log("Gem value = " + $(this).attr("value"));
-    // console.log("Total Score = " + totalScore);
-    // $("#totalScore").html("<h4>Total Score:</h4>" + totalScore);
-    // checkWinner(totalScore, randomNum);
   });
 };

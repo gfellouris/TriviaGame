@@ -10,14 +10,7 @@ body {
 }
 
 /* custom elements */
-li {
-  border: 1px solid #f4b7cf;
-  margin: 5px;
-  padding: 15px;
-  border-radius: 15px;
-  opacity: 0.7;
-  width: 100%;
-}
+
 /* customer classes */
 .container-bg {
   position: relative;
@@ -25,6 +18,15 @@ li {
   padding: 10px;
   background-color: #0a314e;
   opacity: 0.8;
+}
+
+.choice {
+  border: 1px solid #f4b7cf;
+  margin: 5px;
+  padding: 15px;
+  border-radius: 15px;
+  opacity: 0.7;
+  width: 100%;
 }
 
 .answer-container {
@@ -37,18 +39,6 @@ li {
   height: 80%;
   font-size: 150px;
   text-align: center;
-}
-
-.fill {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden
-}
-.fill img {
-    flex-shrink: 0;
-    min-width: 100%;
-    min-height: 100%
 }
 
 /* Custom ID's */
