@@ -1,14 +1,3 @@
-//  Variable that will hold our setInterval that runs the stopwatch
-var intervalId;
-
-// prevents the clock from being sped up unnecessarily
-var clockRunning = false;
-var time = 5;
-
-window.onload = function() {
-  start();
-};
-
 function start() {
   //  TODO: Use setInterval to start the count here and set the clock to running.
   if (!clockRunning) {
@@ -58,3 +47,12 @@ function timeConverter(t) {
 
   return minutes + ":" + seconds;
 }
+
+//  Variable that will hold our setInterval that runs the stopwatch
+var intervalId;
+var clockRunning = false;
+var time = 5;
+
+window.onload = function() {
+  start();
+};
