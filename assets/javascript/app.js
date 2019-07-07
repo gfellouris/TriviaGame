@@ -69,7 +69,6 @@ function loadChoices(qa) {
   //   $("#choices").empty();
   for (x = 0; x < questionAnswer[qa].choices.length; x++) {
     var choice = questionAnswer[qa].choices[x];
-    // $("#choices").append("<div id=choice" + x + " class=choice value='" + choice + "'>" + choice + "</div>"
     $("#choice" + x).attr("value", choice);
     $("#choice" + x).html(choice);
   }
@@ -84,49 +83,49 @@ var time = 30;
 var isWinner = false;
 var questionAnswer = [
   {
-    category: "princes",
-    question: "Who was Snow Whites prince?",
+    category: "theoffice",
+    question: "What type of farm does Dwight own?",
     choices: [
-      "Prince Ferdinand",
-      "Prince Philip",
-      "Prince Charming",
-      "Prince Naveen"
+      "Beet Farm",
+      "Bear Farm",
+      "Carrot Farm",
+      "Beetle Farm"
     ],
-    image: "princeferdinand.jpg",
+    image: "dwightbeetfarm.gif",
     audio: ""
   },
   {
-    category: "princes",
+    category: "theoffice",
     question:
-      "Who was transformed from a frog to a prince after being kissed by Princess Tiana?",
+      "How long were Pam and Roy engaged?",
     choices: [
-      "Prince Naveen",
-      "Prince Philip",
-      "Prince Charming",
-      "Prince Ferdinand"
+      "3-4 Years",
+      "6 Years",
+      "3 Months",
+      "2 Years"
     ],
-    image: "princeferdinand.jpg",
+    image: "roypam.jpg",
     audio: ""
   },
   {
-    category: "princes",
-    question: "How does Aladdin travel to see Princess Jasmine?",
-    choices: ["Magic Carpet", "Horse", "Boat", "Plane"],
-    image: "princeferdinand.jpg",
+    category: "theoffice",
+    question: "What name did Pam and Angela fight over for their babies?",
+    choices: ["Phillip", "Andrew", "James", "William"],
+    image: "angela.gif",
     audio: ""
   },
   {
-    category: "princes",
-    question: "Where does the beast prohibit Belle from going in his castle?",
-    choices: ["The West Wing", "Kitchen", "Dinning Room", "Main Ballroom"],
-    image: "princeferdinand.jpg",
+    category: "theoffice",
+    question: "Where does Jim tell Pam about his feelings?",
+    choices: ["The office parking lot", "The office", "Teh warehouse", "Jim's Car"],
+    image: "jimpamfeelings.gif",
     audio: ""
   },
   {
-    category: "princes",
-    question: "Where did Arielle rescue prince Eric from?",
-    choices: ["Ocean", "Castle", "Forest", "Cave"],
-    image: "princeferdinand.jpg",
+    category: "theoffice",
+    question: "Where do Jim and Pam share their first real kiss?",
+    choices: ["Jim's desk", "The roof", "The warehouse", "Teh park"],
+    image: "jimpamfirstkiss.gif",
     audio: ""
   }
 ];
@@ -155,14 +154,8 @@ window.onload = function() {
       if (isWinner) {
         $(this).css("background-color", "lightgreen");
         alert("You won!");
-        // $(this).css("color", "white");
-        $(".answer-container").html(
-          "<img height=80% width=60% src='assets/images/princeferdinand.png' />"
-        );
-        $(".answer-container").css(
-          "background",
-          "url(assets/images/princeferdinand.png)"
-        );
+        // $(".answer-container").html("<img height=80% width=60% src='assets/images/princeferdinand.png' />");
+        $(".answer-container").css("background","url(assets/images/" + questionAnswer[questionSelected].image);
         $(".answer-container").css("opacity", "1.0");
       } else {
         $(this).css("background-color", "red");
