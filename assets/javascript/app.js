@@ -159,7 +159,7 @@ window.onload = function() {
         var bgColor = "red";
         msg = "Wrong choice!";
       }
-    //   alert(msg);
+      //   alert(msg);
       $(this).css("background-color", bgColor);
       $(".answer-container").css("background", "url(assets/images/" + bgImage);
       $(".answer-container").css("background-size", "300px 300px");
@@ -183,6 +183,10 @@ window.onload = function() {
           loadChoices(questionSelected);
           reset();
           start();
+        }, 5000);
+      } else {
+        setTimeout(function() {
+          alert("Game over!");
         }, 2000);
       }
     }
