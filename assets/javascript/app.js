@@ -85,25 +85,14 @@ var questionAnswer = [
   {
     category: "theoffice",
     question: "What type of farm does Dwight own?",
-    choices: [
-      "Beet Farm",
-      "Bear Farm",
-      "Carrot Farm",
-      "Beetle Farm"
-    ],
+    choices: ["Beet Farm", "Bear Farm", "Carrot Farm", "Beetle Farm"],
     image: "dwightbeetfarm.gif",
     audio: ""
   },
   {
     category: "theoffice",
-    question:
-      "How long were Pam and Roy engaged?",
-    choices: [
-      "3-4 Years",
-      "6 Years",
-      "3 Months",
-      "2 Years"
-    ],
+    question: "How long were Pam and Roy engaged?",
+    choices: ["3-4 Years", "6 Years", "3 Months", "2 Years"],
     image: "roypam.jpg",
     audio: ""
   },
@@ -117,7 +106,12 @@ var questionAnswer = [
   {
     category: "theoffice",
     question: "Where does Jim tell Pam about his feelings?",
-    choices: ["The office parking lot", "The office", "Teh warehouse", "Jim's Car"],
+    choices: [
+      "The office parking lot",
+      "The office",
+      "Teh warehouse",
+      "Jim's Car"
+    ],
     image: "jimpamfeelings.gif",
     audio: ""
   },
@@ -134,6 +128,11 @@ var questionSelected = 0;
 var answered = false;
 
 window.onload = function() {
+  $(".answer-container").css(
+    "background",
+    "url(assets/images/questionmark.jpg"
+  );
+  $(".answer-container").css("background-size", "300px 300px");
   loadQuestion(questionSelected);
   loadChoices(questionSelected);
   start();
@@ -152,28 +151,39 @@ window.onload = function() {
       console.log("Winner?" + isWinner);
 
       if (isWinner) {
-        $(this).css("background-color", "lightgreen");
-        alert("You won!");
-        // $(".answer-container").html("<img height=80% width=60% src='assets/images/princeferdinand.png' />");
-        $(".answer-container").css("background","url(assets/images/" + questionAnswer[questionSelected].image);
-        $(".answer-container").css("opacity", "1.0");
+        var bgColor = "green";
+        msg = "Correct!";
+        var bgImage = questionAnswer[questionSelected].image;
       } else {
-        $(this).css("background-color", "red");
-        alert("Wrong choice!");
-        // $(this).css("color", "white");
+        var bgImage = "loser.gif";
+        var bgColor = "red";
+        msg = "Wrong choice!";
       }
+    //   alert(msg);
+      $(this).css("background-color", bgColor);
+      $(".answer-container").css("background", "url(assets/images/" + bgImage);
+      $(".answer-container").css("background-size", "300px 300px");
+      $(".answer-container").css("opacity", "1.0");
+
+      questionSelected++;
       if (questionSelected < questionAnswer.length) {
-        setInterval(5000);
-        questionSelected++;
-        answered = false;
-        isWinner = false;
-        clockRunning = false;
-        $(".choice").css("background-color", "transparent");
-        console.log("question selected = " + questionSelected);
-        loadQuestion(questionSelected);
-        loadChoices(questionSelected);
-        reset();
-        start();
+        console.log(questionAnswer.length);
+        setTimeout(function() {
+          answered = false;
+          isWinner = false;
+          clockRunning = false;
+          $(".choice").css("background-color", "transparent");
+          $(".answer-container").css(
+            "background",
+            "url(assets/images/questionmark.jpg"
+          );
+          $(".answer-container").css("background-size", "300px 300px");
+          console.log("question selected = " + questionSelected);
+          loadQuestion(questionSelected);
+          loadChoices(questionSelected);
+          reset();
+          start();
+        }, 2000);
       }
     }
   });
