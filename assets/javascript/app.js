@@ -14,7 +14,7 @@ function stop() {
 }
 
 function reset() {
-  time = 30;
+  time = 10;
   //  TODO: Change the "display" div to "00:00."
   stop();
   $("#timer").html("00:30");
@@ -28,7 +28,10 @@ function count() {
   $("#timer").html(result);
   if (time === 0) {
     stop();
-    alert("game over!");
+    answered = true;
+    alert("Time ran out!");
+    loadAnswerImage("../images/timesup.gif");
+    loadNextQuestion();
   }
 }
 
@@ -74,13 +77,50 @@ function loadChoices(qa) {
   }
 }
 
+function questionInit() {
+  answered = false;
+  isWinner = false;
+  clockRunning = false;
+  $(".choice").css("background-color", "transparent");
+  $(".answer-container").css(
+    "background",
+    "url(assets/images/questionmark.jpg"
+  );
+  $(".answer-container").css("background-size", "300px 300px");
+  loadQuestion(questionSelected);
+  loadChoices(questionSelected);
+  reset();
+  start();
+}
+
+function loadNextQuestion() {
+  questionSelected++;
+  if (questionSelected < questionAnswer.length) {
+    setTimeout(function() {
+      questionInit();
+    }, 5000);
+  } else {
+    setTimeout(function() {
+      alert("Game over!");
+    }, 2000);
+  }
+}
+
+function loadAnswerImage(img) {
+  $(".answer-container").css("background", "url(assets/images/" + img);
+  $(".answer-container").css("background-size", "300px 300px");
+  $(".answer-container").css("opacity", "1.0");
+}
 // =============== Main Section - START =============== //
 
 //  Variable that will hold our setInterval that runs the stopwatch
 var intervalId;
 var clockRunning = false;
-var time = 30;
+var time = 10;
 var isWinner = false;
+var questionSelected = 0;
+var answered = false;
+
 var questionAnswer = [
   {
     category: "theoffice",
@@ -124,71 +164,34 @@ var questionAnswer = [
   }
 ];
 
-var questionSelected = 0;
-var answered = false;
-
 window.onload = function() {
-  $(".answer-container").css(
-    "background",
-    "url(assets/images/questionmark.jpg"
-  );
-  $(".answer-container").css("background-size", "300px 300px");
-  loadQuestion(questionSelected);
-  loadChoices(questionSelected);
-  start();
-
+  questionInit();
   $(".choice").on("click", function() {
-    console.log("on click");
     if (answered) {
       // After user makes selection disable ability to keep selecting choices
-      console.log("question answered - load next question");
+      console.log("question answered - waiting for next question to load.");
     } else {
-      answered = true;
-      stop();
-      userSelection = $(this).attr("value");
-      console.log("User selected: " + userSelection);
-      isWinner = checkWinner(userSelection, questionSelected);
-      console.log("Winner?" + isWinner);
+      answered = true; // User provided an answer
+      stop(); // Stop the timer
+      userSelection = $(this).attr("value"); // capture the user selection
 
+      isWinner = checkWinner(userSelection, questionSelected);
       if (isWinner) {
         var bgColor = "green";
         msg = "Correct!";
         var bgImage = questionAnswer[questionSelected].image;
+        var answerMark = '<i class="fas fa-check"></i>';
       } else {
         var bgImage = "loser.gif";
         var bgColor = "red";
         msg = "Wrong choice!";
+        var answerMark = '<i class="fas fa-times"></i>';
       }
       //   alert(msg);
       $(this).css("background-color", bgColor);
-      $(".answer-container").css("background", "url(assets/images/" + bgImage);
-      $(".answer-container").css("background-size", "300px 300px");
-      $(".answer-container").css("opacity", "1.0");
-
-      questionSelected++;
-      if (questionSelected < questionAnswer.length) {
-        console.log(questionAnswer.length);
-        setTimeout(function() {
-          answered = false;
-          isWinner = false;
-          clockRunning = false;
-          $(".choice").css("background-color", "transparent");
-          $(".answer-container").css(
-            "background",
-            "url(assets/images/questionmark.jpg"
-          );
-          $(".answer-container").css("background-size", "300px 300px");
-          console.log("question selected = " + questionSelected);
-          loadQuestion(questionSelected);
-          loadChoices(questionSelected);
-          reset();
-          start();
-        }, 5000);
-      } else {
-        setTimeout(function() {
-          alert("Game over!");
-        }, 2000);
-      }
+      $(this).html(answerMark + " " + $(this).text());
+      loadAnswerImage(bgImage);
+      loadNextQuestion();
     }
   });
 };
