@@ -27,12 +27,15 @@ function count() {
   var result = timeConverter(time);
   $("#timer").html(result);
   if (time === 0) {
-    stop();
-    answered = true;
-    alert("Time ran out!");
-    loadAnswerImage("../images/timesup.gif");
-    loadNextQuestion();
+    timesup();
   }
+}
+function timesup() {
+  stop();
+  answered = true;
+  alert("Time ran out!");
+  loadAnswerImage("../images/timesup.gif");
+  loadNextQuestion();
 }
 
 function timeConverter(t) {
@@ -57,6 +60,7 @@ function timeConverter(t) {
 function loadQuestion(qa) {
   $("#question").html(questionAnswer[qa].question);
 }
+
 function checkWinner(str, qa) {
   bWinner = false;
   console.log("Passed selection:" + str);
@@ -120,6 +124,8 @@ var time = 10;
 var isWinner = false;
 var questionSelected = 0;
 var answered = false;
+var correctCount = 0;
+var wrongCount = 0;
 
 var questionAnswer = [
   {
@@ -149,7 +155,7 @@ var questionAnswer = [
     choices: [
       "The office parking lot",
       "The office",
-      "Teh warehouse",
+      "The warehouse",
       "Jim's Car"
     ],
     image: "jimpamfeelings.gif",
@@ -158,7 +164,7 @@ var questionAnswer = [
   {
     category: "theoffice",
     question: "Where do Jim and Pam share their first real kiss?",
-    choices: ["Jim's desk", "The roof", "The warehouse", "Teh park"],
+    choices: ["Jim's desk", "The roof", "The warehouse", "The park"],
     image: "jimpamfirstkiss.gif",
     audio: ""
   }
@@ -166,6 +172,20 @@ var questionAnswer = [
 
 window.onload = function() {
   questionInit();
+
+  //   if (!answered) {
+  //     $(".choice").hover(
+  //       function() {
+  //         $(this).css("background-color", "#A49193");
+  //         $(this).css("color", "#5B3346");
+  //       },
+  //       function() {
+  //         $(this).css("background-color", "#261f1a");
+  //         $(this).css("color", "#b9b6bc");
+  //       }
+  //     );
+  //   }
+
   $(".choice").on("click", function() {
     if (answered) {
       // After user makes selection disable ability to keep selecting choices
@@ -177,11 +197,13 @@ window.onload = function() {
 
       isWinner = checkWinner(userSelection, questionSelected);
       if (isWinner) {
+        correctCount++;
         var bgColor = "green";
         msg = "Correct!";
         var bgImage = questionAnswer[questionSelected].image;
         var answerMark = '<i class="fas fa-check"></i>';
       } else {
+        wrongCount++;
         var bgImage = "loser.gif";
         var bgColor = "red";
         msg = "Wrong choice!";
@@ -190,6 +212,8 @@ window.onload = function() {
       //   alert(msg);
       $(this).css("background-color", bgColor);
       $(this).html(answerMark + " " + $(this).text());
+      $("#wrongCount").html(wrongCount);
+      $("#correctCount").html(correctCount);
       loadAnswerImage(bgImage);
       loadNextQuestion();
     }
