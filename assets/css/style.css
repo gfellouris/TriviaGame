@@ -1,12 +1,16 @@
 body {
-  background-image: url("../images/TheOffice.jpg");
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  background-position: relative;
-  background-size: cover;
   color: #b9b6bc;
   font-family: "Bubblegum Sans", cursive;
   font-size: 20px;
+}
+
+#content {
+  background-image: url("../images/TheOffice.jpg");
+  background-size: cover;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  padding-top: 40px;
+  height: 100vh;
 }
 
 /* custom elements */
@@ -61,4 +65,9 @@ body {
   background-color: #261f1a;
   color: #b9b6bc;
   font-size: 42px;
+  margin: 0px;
+}
+
+.choice:hover {
+  background-color: #b9b6bc;
 }

@@ -24,39 +24,41 @@
 
 <body>
     <div class="jumbotron">The Office Trivia Game</div>
+    <div id="content">
 
 
-    <div id="container" class="container container-bg">
-        <img id="container-logo" height=64px width=64px src="assets/images/TheOfficeLogo.png" />
-        <div id="trivia-time-remaining" class="row">
-            <div class="col-md-12">
-                Time Remaining: <span id="timer"></span>
-            </div>
-        </div>
-
-        <div id="trivia-question" class="row">
-            <div class="col-md-12">
-                <span id="question"></span>
-            </div>
-        </div>
-
-        <div id="trivia-choices" class="row">
-            <div id="choices" class="col-md-6">
-                <div id="choice0" class="choice" value=""></div>
-                <div id="choice1" class="choice" value=""></div>
-                <div id="choice2" class="choice" value=""></div>
-                <div id="choice3" class="choice" value=""></div>
-            </div>
-            <div class="col-md-6">
-                <div class="answer-container">
-                    <!-- dynamic content from app.js will appear here -->
+        <div id="container" class="container container-bg">
+            <img id="container-logo" height=64px width=64px src="assets/images/TheOfficeLogo.png" />
+            <div id="trivia-time-remaining" class="row">
+                <div class="col-md-12">
+                    Time Remaining: <span id="timer"></span>
                 </div>
             </div>
-        </div>
-        <div id=answerCount>Wrong: <span id="wrongCount"></span> / Correct: <span id="correctCount"></span></div>
-    </div>
 
-    <script src="assets/javascript/app.js"></script>
+            <div id="trivia-question" class="row">
+                <div class="col-md-12">
+                    <span id="question"></span>
+                </div>
+            </div>
+
+            <div id="trivia-choices" class="row">
+                <div id="choices" class="col-md-6">
+                    <div id="choice0" class="choice" value=""></div>
+                    <div id="choice1" class="choice" value=""></div>
+                    <div id="choice2" class="choice" value=""></div>
+                    <div id="choice3" class="choice" value=""></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="answer-container">
+                        <!-- dynamic content from app.js will appear here -->
+                    </div>
+                </div>
+            </div>
+            <div id=answerCount>Wrong: <span id="wrongCount"></span> / Correct: <span id="correctCount"></span></div>
+        </div>
+
+        <script src="assets/javascript/app.js"></script>
+    </div>
 </body>
 
 </html>

@@ -67,19 +67,10 @@ function loadQuestion(qa) {
   $("#question").html(questionAnswer[qa].question);
 }
 
-function checkWinner(str, qa) {
-  bWinner = false;
-  console.log("Passed selection:" + str);
-  if (str === questionAnswer[qa].choices[0]) {
-    bWinner = true;
-  } else {
-    bWinner = false;
-  }
-  return bWinner;
-}
-
 function loadChoices(qa) {
   //   $("#choices").empty();
+  questionAnswer[qa].choices.sort(() => Math.random() - 0.5);
+
   for (x = 0; x < questionAnswer[qa].choices.length; x++) {
     var choice = questionAnswer[qa].choices[x];
     $("#choice" + x).attr("value", choice);
@@ -138,6 +129,7 @@ var questionAnswer = [
     category: "theoffice",
     question: "What type of farm does Dwight own?",
     choices: ["Beet Farm", "Bear Farm", "Carrot Farm", "Beetle Farm"],
+    correctAnswer: "Beet Farm",
     image: "dwightbeetfarm.gif",
     audio: ""
   },
@@ -145,6 +137,7 @@ var questionAnswer = [
     category: "theoffice",
     question: "How long were Pam and Roy engaged?",
     choices: ["3-4 Years", "6 Years", "3 Months", "2 Years"],
+    correctAnswer: "3-4 Years",
     image: "roypam.jpg",
     audio: ""
   },
@@ -152,6 +145,7 @@ var questionAnswer = [
     category: "theoffice",
     question: "What name did Pam and Angela fight over for their babies?",
     choices: ["Phillip", "Andrew", "James", "William"],
+    correctAnswer: "Phillip",
     image: "angela.gif",
     audio: ""
   },
@@ -164,6 +158,7 @@ var questionAnswer = [
       "The warehouse",
       "Jim's Car"
     ],
+    correctAnswer: "The office parking lot",
     image: "jimpamfeelings.gif",
     audio: ""
   },
@@ -171,6 +166,7 @@ var questionAnswer = [
     category: "theoffice",
     question: "Where do Jim and Pam share their first real kiss?",
     choices: ["Jim's desk", "The roof", "The warehouse", "The park"],
+    correctAnswer: "Jim's desk",
     image: "jimpamfirstkiss.gif",
     audio: ""
   }
@@ -178,19 +174,6 @@ var questionAnswer = [
 
 window.onload = function() {
   questionInit();
-
-  // if (!answered) {
-  //   $(".choice").hover(
-  //     function() {
-  //       $(this).css("background-color", "#A49193");
-  //       $(this).css("color", "#5B3346");
-  //     },
-  //     function() {
-  //       $(this).css("background-color", "#261f1a");
-  //       $(this).css("color", "#b9b6bc");
-  //     }
-  //   );
-  // }
 
   $(".choice").on("click", function() {
     if (answered) {
@@ -200,9 +183,10 @@ window.onload = function() {
       answered = true; // User provided an answer
       stop(); // Stop the timer
       userSelection = $(this).attr("value"); // capture the user selection
+      //   console.log(userSelection);
+      //   console.log(questionAnswer[questionSelected].correctAnswer);
 
-      isWinner = checkWinner(userSelection, questionSelected);
-      if (isWinner) {
+      if (userSelection === questionAnswer[questionSelected].correctAnswer) {
         correctCount++;
         var bgColor = "green";
         msg = "Correct!";
