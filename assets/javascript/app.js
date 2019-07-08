@@ -17,7 +17,7 @@ function reset() {
   time = 10;
   //  TODO: Change the "display" div to "00:00."
   stop();
-  $("#timer").html("00:30");
+  $("#timer").html("00:10");
 }
 
 function count() {
@@ -96,7 +96,7 @@ function questionInit() {
     "background",
     "url(assets/images/questionmark.jpg"
   );
-  $(".answer-container").css("background-size", "300px 300px");
+  $(".answer-container").css("background-size", "250px 250px");
   loadQuestion(questionSelected);
   loadChoices(questionSelected);
   reset();
@@ -118,7 +118,7 @@ function loadNextQuestion() {
 
 function loadAnswerImage(img) {
   $(".answer-container").css("background", "url(assets/images/" + img);
-  $(".answer-container").css("background-size", "300px 300px");
+  $(".answer-container").css("background-size", "250px 250px");
   $(".answer-container").css("opacity", "1.0");
 }
 // =============== Main Section - START =============== //
@@ -179,18 +179,18 @@ var questionAnswer = [
 window.onload = function() {
   questionInit();
 
-  //   if (!answered) {
-  //     $(".choice").hover(
-  //       function() {
-  //         $(this).css("background-color", "#A49193");
-  //         $(this).css("color", "#5B3346");
-  //       },
-  //       function() {
-  //         $(this).css("background-color", "#261f1a");
-  //         $(this).css("color", "#b9b6bc");
-  //       }
-  //     );
-  //   }
+  // if (!answered) {
+  //   $(".choice").hover(
+  //     function() {
+  //       $(this).css("background-color", "#A49193");
+  //       $(this).css("color", "#5B3346");
+  //     },
+  //     function() {
+  //       $(this).css("background-color", "#261f1a");
+  //       $(this).css("color", "#b9b6bc");
+  //     }
+  //   );
+  // }
 
   $(".choice").on("click", function() {
     if (answered) {
