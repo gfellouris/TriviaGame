@@ -27,13 +27,19 @@ function count() {
   var result = timeConverter(time);
   $("#timer").html(result);
   if (time === 0) {
-    timesup();
+    timesUp();
   }
 }
-function timesup() {
+function timesUp() {
   stop();
   answered = true;
+  wrongCount++;
+  bgColor = "green";
+  answerMark = '<i class="fas fa-check"></i>';
   alert("Time ran out!");
+  $("#choice0").css("background-color", bgColor);
+  $("#choice0").html(answerMark + " " + $("#choice0").text());
+  $("#wrongCount").html(wrongCount);
   loadAnswerImage("../images/timesup.gif");
   loadNextQuestion();
 }
