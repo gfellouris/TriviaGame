@@ -35,7 +35,7 @@ function timesUp() {
   showMsg("Sorry, time ran out!", "alert alert-warning");
 
   answered = true;
-  wrongCount++;
+  unansweredCount++;
   bgColor = "green";
   answerMark = '<i class="fas fa-check"></i>';
   intCorrectAnswer = questionAnswer[questionSelected].choices.indexOf(
@@ -45,7 +45,7 @@ function timesUp() {
   $("#choice" + intCorrectAnswer).html(
     answerMark + " " + $("#choice" + intCorrectAnswer).text()
   );
-  $("#wrongCount").html(wrongCount);
+  $("#unansweredCount").html(unansweredCount);
   loadAnswerImage("../images/timesup.gif");
   loadNextQuestion();
 }
@@ -111,7 +111,7 @@ function loadNextQuestion() {
     setTimeout(function() {
       showMsg("Game over!", "alert alert-primary");
       loadAnswerImage("start.gif");
-      $(".answer-container").attr("onclick","restartGame()");
+      $(".answer-container").attr("onclick", "restartGame()");
     }, 2000);
   }
 }
@@ -139,10 +139,12 @@ function restartGame() {
   answered = false;
   correctCount = 0;
   wrongCount = 0;
+  unansweredCount = 0;
   questionInit();
   $(".answer-container").removeAttr("onclick");
   $("#wrongCount").html("0");
   $("#correctCount").html("0");
+  $("#unansweredCount").html("0");
 }
 // =============== Main Section - START =============== //
 
@@ -154,6 +156,7 @@ var questionSelected = 0;
 var answered = false;
 var correctCount = 0;
 var wrongCount = 0;
+var unansweredCount = 0;
 
 var questionAnswer = [
   {
@@ -249,6 +252,16 @@ window.onload = function() {
         message = "Wrong choice!";
         messageCSS = "alert alert-danger";
         var answerMark = '<i class="fas fa-times"></i>';
+        // if answer is wrong we need to show the user the correct answer
+        intCorrectAnswer = questionAnswer[questionSelected].choices.indexOf(
+          questionAnswer[questionSelected].correctAnswer
+        );
+        $("#choice" + intCorrectAnswer).css("background-color", "green");
+        $("#choice" + intCorrectAnswer).html(
+          '<i class="fas fa-check"></i>' +
+            " " +
+            $("#choice" + intCorrectAnswer).text()
+        );
       }
       $(this).css("background-color", bgColor);
       $(this).html(answerMark + " " + $(this).text());
