@@ -249,7 +249,7 @@ window.onload = function() {
         wrongCount++;
         var bgImage = "loser.gif";
         var bgColor = "red";
-        message = "Wrong choice!";
+        message = "Incorrect choice!";
         messageCSS = "alert alert-danger";
         var answerMark = '<i class="fas fa-times"></i>';
         // if answer is wrong we need to show the user the correct answer
