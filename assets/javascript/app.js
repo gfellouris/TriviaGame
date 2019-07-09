@@ -35,10 +35,15 @@ function timesUp() {
   answered = true;
   wrongCount++;
   bgColor = "green";
+  showMsg("Sorry, time ran out!", "alert alert-warning");
   answerMark = '<i class="fas fa-check"></i>';
-  alert("Time ran out!");
-  $("#choice0").css("background-color", bgColor);
-  $("#choice0").html(answerMark + " " + $("#choice0").text());
+  intCorrectAnswer = questionAnswer[questionSelected].choices.indexOf(
+    questionAnswer[questionSelected].correctAnswer
+  );
+  $("#choice" + intCorrectAnswer).css("background-color", bgColor);
+  $("#choice" + intCorrectAnswer).html(
+    answerMark + " " + $("#choice" + intCorrectAnswer).text()
+  );
   $("#wrongCount").html(wrongCount);
   loadAnswerImage("../images/timesup.gif");
   loadNextQuestion();
@@ -88,6 +93,7 @@ function questionInit() {
     "url(assets/images/questionmark.jpg"
   );
   $(".answer-container").css("background-size", "250px 250px");
+  hideMsg();
   loadQuestion(questionSelected);
   loadChoices(questionSelected);
   reset();
@@ -102,7 +108,7 @@ function loadNextQuestion() {
     }, 5000);
   } else {
     setTimeout(function() {
-      alert("Game over!");
+      showMsg("Game over!", "alert alert-primary");
     }, 2000);
   }
 }
@@ -111,6 +117,16 @@ function loadAnswerImage(img) {
   $(".answer-container").css("background", "url(assets/images/" + img);
   $(".answer-container").css("background-size", "250px 250px");
   $(".answer-container").css("opacity", "1.0");
+}
+
+function showMsg(msg, css) {
+  $("#message").html(msg);
+  $("#message").attr("class", css);
+  $("#message").show();
+}
+function hideMsg() {
+  $("#message").empty();
+  $("#message").hide();
 }
 // =============== Main Section - START =============== //
 
@@ -171,10 +187,8 @@ var questionAnswer = [
     audio: ""
   }
 ];
-
 window.onload = function() {
   questionInit();
-
   $(".choice").on("click", function() {
     if (answered) {
       // After user makes selection disable ability to keep selecting choices
@@ -189,19 +203,22 @@ window.onload = function() {
       if (userSelection === questionAnswer[questionSelected].correctAnswer) {
         correctCount++;
         var bgColor = "green";
-        msg = "Correct!";
+        message = "Correct!";
+        messageCSS = "alert alert-success";
         var bgImage = questionAnswer[questionSelected].image;
         var answerMark = '<i class="fas fa-check"></i>';
       } else {
         wrongCount++;
         var bgImage = "loser.gif";
         var bgColor = "red";
-        msg = "Wrong choice!";
+        message = "Wrong choice!";
+        messageCSS = "alert alert-danger";
         var answerMark = '<i class="fas fa-times"></i>';
       }
       //   alert(msg);
       $(this).css("background-color", bgColor);
       $(this).html(answerMark + " " + $(this).text());
+      showMsg(message, messageCSS);
       $("#wrongCount").html(wrongCount);
       $("#correctCount").html(correctCount);
       loadAnswerImage(bgImage);
