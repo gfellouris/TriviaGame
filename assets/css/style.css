@@ -55,9 +55,10 @@ body {
 }
 
 #container-logo {
-  position: absolute;
+  /* position: absolute;
   top: -30px;
-  left: -40px;
+  left: -40px; */
+  display: inline;
 }
 
 /* Bootstrap customizations */
