@@ -32,10 +32,11 @@ function count() {
 }
 function timesUp() {
   stop();
+  showMsg("Sorry, time ran out!", "alert alert-warning");
+
   answered = true;
   wrongCount++;
   bgColor = "green";
-  showMsg("Sorry, time ran out!", "alert alert-warning");
   answerMark = '<i class="fas fa-check"></i>';
   intCorrectAnswer = questionAnswer[questionSelected].choices.indexOf(
     questionAnswer[questionSelected].correctAnswer
@@ -109,6 +110,8 @@ function loadNextQuestion() {
   } else {
     setTimeout(function() {
       showMsg("Game over!", "alert alert-primary");
+      loadAnswerImage("start.gif");
+      $(".answer-container").attr("onclick","restartGame()");
     }, 2000);
   }
 }
@@ -128,13 +131,25 @@ function hideMsg() {
   $("#message").empty();
   $("#message").hide();
 }
+
+function restartGame() {
+  clockRunning = false;
+  time = 10;
+  questionSelected = 0;
+  answered = false;
+  correctCount = 0;
+  wrongCount = 0;
+  questionInit();
+  $(".answer-container").removeAttr("onclick");
+  $("#wrongCount").html("0");
+  $("#correctCount").html("0");
+}
 // =============== Main Section - START =============== //
 
 //  Variable that will hold our setInterval that runs the stopwatch
 var intervalId;
 var clockRunning = false;
 var time = 10;
-var isWinner = false;
 var questionSelected = 0;
 var answered = false;
 var correctCount = 0;
@@ -143,20 +158,41 @@ var wrongCount = 0;
 var questionAnswer = [
   {
     category: "theoffice",
+    question: "Which office employee did Michael hit with his car?",
+    choices: ["Angela", "Kelly", "Meredith", "Stanley"],
+    correctAnswer: "Meredith",
+    image: "meredith.gif",
+    audio: ""
+  },
+  {
+    category: "theoffice",
+    question: "What does Michael Scott's Coffee Mug say?",
+    choices: [
+      "Dunder MIfflin Paper Company",
+      "#1 Boss",
+      "Word's Greatest Boss",
+      "World's Best Boss"
+    ],
+    correctAnswer: "World's Best Boss",
+    image: "worldsbestboss.gif",
+    audio: ""
+  },
+  {
+    category: "theoffice",
     question: "What type of farm does Dwight own?",
     choices: ["Beet Farm", "Bear Farm", "Carrot Farm", "Beetle Farm"],
     correctAnswer: "Beet Farm",
     image: "dwightbeetfarm.gif",
     audio: ""
   },
-  {
-    category: "theoffice",
-    question: "How long were Pam and Roy engaged?",
-    choices: ["3-4 Years", "6 Years", "3 Months", "2 Years"],
-    correctAnswer: "3-4 Years",
-    image: "roypam.jpg",
-    audio: ""
-  },
+  //   {
+  //     category: "theoffice",
+  //     question: "How long were Pam and Roy engaged?",
+  //     choices: ["3-4 Years", "6 Years", "3 Months", "2 Years"],
+  //     correctAnswer: "3-4 Years",
+  //     image: "roypam.jpg",
+  //     audio: ""
+  //   },
   {
     category: "theoffice",
     question: "What name did Pam and Angela fight over for their babies?",
@@ -165,19 +201,19 @@ var questionAnswer = [
     image: "angela.gif",
     audio: ""
   },
-  {
-    category: "theoffice",
-    question: "Where does Jim tell Pam about his feelings?",
-    choices: [
-      "The office parking lot",
-      "The office",
-      "The warehouse",
-      "Jim's Car"
-    ],
-    correctAnswer: "The office parking lot",
-    image: "jimpamfeelings.gif",
-    audio: ""
-  },
+  //   {
+  //     category: "theoffice",
+  //     question: "Where does Jim tell Pam about his feelings?",
+  //     choices: [
+  //       "The office parking lot",
+  //       "The office",
+  //       "The warehouse",
+  //       "Jim's Car"
+  //     ],
+  //     correctAnswer: "The office parking lot",
+  //     image: "jimpamfeelings.gif",
+  //     audio: ""
+  //   },
   {
     category: "theoffice",
     question: "Where do Jim and Pam share their first real kiss?",
@@ -187,6 +223,7 @@ var questionAnswer = [
     audio: ""
   }
 ];
+
 window.onload = function() {
   questionInit();
   $(".choice").on("click", function() {
@@ -197,8 +234,6 @@ window.onload = function() {
       answered = true; // User provided an answer
       stop(); // Stop the timer
       userSelection = $(this).attr("value"); // capture the user selection
-      //   console.log(userSelection);
-      //   console.log(questionAnswer[questionSelected].correctAnswer);
 
       if (userSelection === questionAnswer[questionSelected].correctAnswer) {
         correctCount++;
@@ -215,7 +250,6 @@ window.onload = function() {
         messageCSS = "alert alert-danger";
         var answerMark = '<i class="fas fa-times"></i>';
       }
-      //   alert(msg);
       $(this).css("background-color", bgColor);
       $(this).html(answerMark + " " + $(this).text());
       showMsg(message, messageCSS);
